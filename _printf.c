@@ -1,6 +1,6 @@
 #include "main.h"
 
-format_specifer specifiers[] = {
+format_specifier specifiers[] = {
 	{'c', handle_char},
 	{'s', handle_string},
 	{'%', handle_percent},

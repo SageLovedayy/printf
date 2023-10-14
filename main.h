@@ -11,7 +11,7 @@ int _printf(const char *format, ...);
 typedef struct {
 	char specifier;  /* c, s, d, i... */
 	int (*handler)(va_list args);
-} format_specifer;
+} format_specifier;
 
 int handle_char(va_list args);
 int handle_string(va_list args);
