@@ -4,6 +4,8 @@ format_specifier specifiers[] = {
 	{'c', handle_char},
 	{'s', handle_string},
 	{'%', handle_percent},
+	{'d', handle_int},
+	{'i', handle_int},
 	{'\0', NULL},
 	/* add more specifiers */
 };
