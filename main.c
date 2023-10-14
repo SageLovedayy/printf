@@ -1,7 +1,10 @@
 #include "main.h"
+#include <limits.h>
+#include <stdio.h>
 
 int main() {
     int num, num1, len, len2;
+    unsigned int ui = (unsigned int)INT_MAX + 1024;
 
     num = _printf("Let's try to printf a simple sentence.\n");
     num1 = printf("Let's try to printf a simple sentence.\n");
@@ -24,6 +27,16 @@ int main() {
     printf("Negative:[%d]\n", -762534);
     _printf("Len:[%d]\n", len);
     printf("Len:[%d]\n", len2);
+    _printf("Unsigned:[%u]\n", ui);
+    printf("Unsigned:[%u]\n", ui);
+    _printf("Unsigned octal:[%o]\n", ui);
+    printf("Unsigned octal:[%o]\n", ui);
+    _printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
+    printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
+
+    _printf("%b\n", 98);
+
+
 
     return 0;
 }
