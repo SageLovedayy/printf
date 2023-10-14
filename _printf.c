@@ -4,7 +4,8 @@ format_specifer specifiers[] = {
 	{'c', handle_char},
 	{'s', handle_string},
 	{'%', handle_percent},
-	/* add more: got this from your cent task we discussed in pld :D */
+	{'\0', NULL},
+	/* add more specifiers */
 };
 
 int _printf(const char *format, ...)
@@ -15,14 +16,12 @@ int _printf(const char *format, ...)
 	va_start(args, format);
 
 
-	while (*format)
+	while (*format && (*format != '\0'))
 	{
 		if (*format == '%')
 		{
 			format++;
-			/*sizeof(specifiers) / sizeof(specifiers[0]) to calculate the number of element
-			* we would replace it later with the number of element since sizeof is'nt allowed */
-			for (i = 0; i < sizeof(specifiers) / sizeof(specifiers[0]); i++)
+			for (i = 0; specifiers[i].specifier != '\0'; i++)
 			{
 				if (*format == specifiers[i].specifier)
 				{
