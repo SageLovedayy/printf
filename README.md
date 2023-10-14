@@ -36,7 +36,7 @@ To use the custom `printf` function in your C program, follow these steps:
 4. Compile your program with the custom `printf` implementation:
 
     ```bash
-    gcc -o my_program my_program.c _printf.c -Wall -Wextra -std=c99
+    gcc  -Wall -Werror -Wextra -pedantic -std=gnu89  _printf.c my_program.c -o my_program
     ```
 
 5. Run the compiled program:
