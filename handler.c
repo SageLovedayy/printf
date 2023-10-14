@@ -47,3 +47,26 @@ int handle_int(va_list args)
 	free(num_str);
 	return write(1, buffer, buffer_len);
 }
+
+int handle_binary(va_list args)
+{
+	unsigned int num = va_arg(args, unsigned int);
+	char buffer[BUFFER], *binary_str;
+	int i, buffer_len = 0, binary_str_len = 0;
+
+	binary_str = malloc(BUFFER * sizeof(char));
+	if(binary_str == NULL)
+		return -1;
+
+	do
+	{
+		binary_str[binary_str_len++] = '0' + (num % 2);
+		num /= 2;
+	} while (num > 0);
+
+	for (i = binary_str_len - 1; i >= 0; i--)
+		buffer[buffer_len++] = binary_str[i];
+
+	free(binary_str);
+	return write(1, buffer, buffer_len);
+}

@@ -6,6 +6,7 @@ format_specifier specifiers[] = {
 	{'%', handle_percent},
 	{'d', handle_int},
 	{'i', handle_int},
+	{'b', handle_binary},
 	{'\0', NULL},
 	/* add more specifiers */
 };
