@@ -9,10 +9,20 @@
 
 int _printf(const char *format, ...);
 
-typedef struct {
+
+/**
+* struct format_specifier_struct - associates format specifiers with handlers
+* @specifier: character representing specific format specifier
+* @handler: pointer to function that handles specified format
+*/
+
+struct format_specifier_struct
+{
 	char specifier;  /* c, s, d, i... */
 	int (*handler)(va_list args);
-} format_specifier;
+};
+
+typedef struct format_specifier_struct format_specifier;
 
 int handle_char(va_list args);
 int handle_string(va_list args);

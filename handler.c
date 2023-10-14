@@ -1,25 +1,47 @@
 #include "main.h"
 
+/**
+* handle_char - handles character specifier for printf
+* @args: va_list containing the character argument
+* Return: Number of characters printed
+*/
 int handle_char(va_list args)
 {
 	char c = va_arg(args, int);
-	return write(1, &c, 1);
+
+	return (write(1, &c, 1));
 }
 
+/**
+* handle_string - handles string specifier for printf
+* @args: va_list containing the character argument
+* Return: Number of characters printed (length of string)
+*/
 int handle_string(va_list args)
 {
 	char *str = va_arg(args, char *);
-	return write(1, str, _strlen(str));
+
+	return (write(1, str, _strlen(str)));
 }
 
+/**
+* handle_percent - handles percent specifier for printf
+* @args: va_list containing the character argument
+* Return: Number of characters printed (Always 1)
+*/
 int handle_percent(va_list args)
 {
 	char percent = '%';
 	(void)args;
 
-	return write(1, &percent, 1);
+	return (write(1, &percent, 1));
 }
 
+/**
+* handle_int - handles integer specifier for printf
+* @args: va_list containing the integer argument
+* Return: Number of characters printed (including -)
+*/
 int handle_int(va_list args)
 {
 	int i, num = va_arg(args, int), buffer_len = 0, num_str_len = 0;
@@ -35,8 +57,7 @@ int handle_int(va_list args)
 	if (num_str == NULL)
 		return (-1);
 
-	do
-	{
+	do {
 		num_str[num_str_len++] = '0' + (num % 10);
 		num /= 10;
 	} while (num > 0);
@@ -45,17 +66,22 @@ int handle_int(va_list args)
 		buffer[buffer_len++] = num_str[i];
 
 	free(num_str);
-	return write(1, buffer, buffer_len);
+	return (write(1, buffer, buffer_len));
 }
 
+
+/**
+* handle_unsigned - handles unsigned integer specifier for printf
+* @args: va_list containing the unsigned int argument
+* Return: Number of characters printed (excluding -)
+*/
 int handle_unsigned(va_list args)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], reversed_buffer[BUFFER];
 	int i, buffer_len = 0, reversed_len = 0;
 
-	do
-	{
+	do {
 		buffer[buffer_len++] = '0' + (num % 10);
 		num /= 10;
 	} while (num > 0);
@@ -63,5 +89,5 @@ int handle_unsigned(va_list args)
 	for (i = buffer_len - 1; i >= 0; i--)
 		reversed_buffer[reversed_len++] = buffer[i];
 
-	return write(1, reversed_buffer, reversed_len);
+	return (write(1, reversed_buffer, reversed_len));
 }

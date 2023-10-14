@@ -1,5 +1,10 @@
 #include "main.h"
 
+/**
+* handle_binary - handles the binary specifier
+* @args: va_list containing the unsigned integer argument
+* Return: Number of characters printed
+*/
 int handle_binary(va_list args)
 {
 	unsigned int num = va_arg(args, unsigned int);
@@ -7,11 +12,10 @@ int handle_binary(va_list args)
 	int i, buffer_len = 0, binary_str_len = 0;
 
 	binary_str = malloc(BUFFER * sizeof(char));
-	if(binary_str == NULL)
-		return -1;
+	if (binary_str == NULL)
+		return (-1);
 
-	do
-	{
+	do {
 		binary_str[binary_str_len++] = '0' + (num % 2);
 		num /= 2;
 	} while (num > 0);
@@ -20,17 +24,21 @@ int handle_binary(va_list args)
 		buffer[buffer_len++] = binary_str[i];
 
 	free(binary_str);
-	return write(1, buffer, buffer_len);
+	return (write(1, buffer, buffer_len));
 }
 
+/**
+* handle_octal - handles the octal specifier
+* @args: va_list containing the unsigned integer argument
+* Return: Number of characters printed
+*/
 int handle_octal(va_list args)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], reversed_buffer[BUFFER];
 	int i, buffer_len = 0, reversed_len = 0;
 
-	do
-	{
+	do {
 		buffer[buffer_len++] = '0' + (num % 8);
 		num /= 8;
 	} while (num > 0);
@@ -38,17 +46,22 @@ int handle_octal(va_list args)
 	for (i = buffer_len - 1; i >= 0; i--)
 		reversed_buffer[reversed_len++] = buffer[i];
 
-	return write(1, reversed_buffer, reversed_len);
+	return (write(1, reversed_buffer, reversed_len));
 }
 
+
+/**
+* handle_hex_lower - handles the lowercase hexadecimal specifier
+* @args: va_list containing the unsigned integer argument
+* Return: Number of characters printed
+*/
 int handle_hex_lower(va_list args)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], reversed_buffer[BUFFER];
 	int i, buffer_len = 0, remainder, reversed_len = 0;
 
-	do
-	{
+	do {
 		remainder = num % 16;
 		if (remainder < 10)
 			buffer[buffer_len++] = '0' + remainder;
@@ -60,18 +73,21 @@ int handle_hex_lower(va_list args)
 	for (i = buffer_len - 1; i >= 0; i--)
 		reversed_buffer[reversed_len++] = buffer[i];
 
-	return write(1, reversed_buffer, reversed_len);
+	return (write(1, reversed_buffer, reversed_len));
 }
 
-
+/**
+* handle_hex_upper - handles the uppercase hexadecimal specifier
+* @args: va_list containing the unsigned integer argument
+* Return: Number of characters printed
+*/
 int handle_hex_upper(va_list args)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], reversed_buffer[BUFFER];
 	int i, buffer_len = 0, remainder, reversed_len = 0;
 
-	do
-	{
+	do {
 		remainder = num % 16;
 		if (remainder < 10)
 			buffer[buffer_len++] = '0' + remainder;
@@ -83,5 +99,5 @@ int handle_hex_upper(va_list args)
 	for (i = buffer_len - 1; i >= 0; i--)
 		reversed_buffer[reversed_len++] = buffer[i];
 
-	return write(1, reversed_buffer, reversed_len);
+	return (write(1, reversed_buffer, reversed_len));
 }
