@@ -58,8 +58,8 @@ int handle_octal(va_list args)
 int handle_hex_lower(va_list args)
 {
 	unsigned int num = va_arg(args, unsigned int);
-	char buffer[BUFFER], reversed_buffer[BUFFER];
-	int i, buffer_len = 0, remainder, reversed_len = 0;
+	char buffer[BUFFER];
+	int i, buffer_len = 0, remainder;
 
 	do {
 		remainder = num % 16;
@@ -68,12 +68,12 @@ int handle_hex_lower(va_list args)
 		else
 			buffer[buffer_len++] = 'a' + (remainder - 10);
 		num /= 16;
-	} while (num /= 16);
+	} while (num != 0);
 
 	for (i = buffer_len - 1; i >= 0; i--)
-		reversed_buffer[reversed_len++] = buffer[i];
+		write(1, &buffer[i], 1);
 
-	return (write(1, reversed_buffer, reversed_len));
+	return (buffer_len);
 }
 
 /**

@@ -3,8 +3,13 @@
 #include <stdio.h>
 
 int main() {
+
     int num, num1, len, len2;
     unsigned int ui = (unsigned int)INT_MAX + 1024;
+    _printf("%s\n", NULL);
+    _printf("Character: %c, String: %s, Integer: %d\n", 'X', "Testing", 123);
+
+
 
     num = _printf("Let's try to printf a simple sentence.\n");
     num1 = printf("Let's try to printf a simple sentence.\n");

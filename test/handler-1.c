@@ -49,36 +49,35 @@ int handle_percent(va_list args)
 */
 int handle_int(va_list args)
 {
-	int num = va_arg(args, int), i;
+	int num = va_arg(args, int);
+	/* Maximum length for an integer string representation (including '-' sign) */
 	char buffer[BUFFER];
-	int buffer_len = 0, is_negative = 0;
+	int buffer_len = 0;
 
+	/* Handle zero as a special case */
 	if (num == 0)
 	{
 		buffer[buffer_len++] = '0';
 	}
+
 	else
 	{
-
+		/* Handle negative numbers */
 		if (num < 0)
 		{
-			is_negative = 1;
+			buffer[buffer_len++] = '-';
 			num = -num;
 		}
 
+		/* Convert the integer to a string in reverse order */
 		while (num > 0)
 		{
 			buffer[buffer_len++] = '0' + (num % 10);
 			num /= 10;
 		}
 
-		if (is_negative)
-		{
-			buffer[buffer_len++] = '-';
-		}
-
-
-		for (i = 0; i < buffer_len / 2; i++)
+		/* Reverse the string to get the correct order */
+		for (int i = 0; i < buffer_len / 2; i++)
 		{
 			char temp = buffer[i];
 
@@ -86,9 +85,10 @@ int handle_int(va_list args)
 			buffer[buffer_len - i - 1] = temp;
 		}
 	}
-
-	buffer[buffer_len] = '\0';
-	return (write(1, buffer, buffer_len));
+	/* Write the buffer to stdout */
+	int chars_written = write(1, buffer, buffer_len);
+	/* Return the number of characters written or -1 in case of an error */
+	return ((chars_written == buffer_len) ? chars_written : -1);
 }
 
 
