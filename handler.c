@@ -52,27 +52,37 @@ int handle_int(va_list args)
 	int i, num = va_arg(args, int), buffer_len = 0, num_str_len = 0;
 	char buffer[BUFFER], *num_str;
 
-	if (num < 0)
+	if (num == 0)
 	{
-		buffer[buffer_len++] = '-';
-		num = -num;
+		buffer[buffer_len++] = '0';
 	}
 
-	num_str = malloc(BUFFER * sizeof(char));
-	if (num_str == NULL)
-		return (-1);
+	else
+	{
+		if (num < 0)
+		{
+			buffer[buffer_len++] = '-';
+			num = -num;
+		}
 
-	do {
-		num_str[num_str_len++] = '0' + (num % 10);
-		num /= 10;
-	} while (num > 0);
+		num_str = malloc(BUFFER * sizeof(char));
+		if (num_str == NULL)
+			return (-1);
 
-	for (i = num_str_len - 1; i >= 0; i--)
-		buffer[buffer_len++] = num_str[i];
+		do {
+			num_str[num_str_len++] = '0' + (num % 10);
+			num /= 10;
+		} while (num > 0);
 
-	free(num_str);
-	return (write(1, buffer, buffer_len));
+		for (i = num_str_len - 1; i >= 0; i--)
+			buffer[buffer_len++] = num_str[i];
+
+		free(num_str);
+		return (write(1, buffer, buffer_len));
+
+	}
 }
+
 
 
 /**
