@@ -49,49 +49,30 @@ int handle_percent(va_list args)
 */
 int handle_int(va_list args)
 {
-	int num = va_arg(args, int);
-	/* Maximum length for an integer string representation (including '-' sign) */
-	char buffer[12];
-	int buffer_len = 0;
+	int i, num = va_arg(args, int), buffer_len = 0, num_str_len = 0;
+	char buffer[BUFFER], *num_str;
 
-	/* Handle zero as a special case */
-	if (num == 0)
+	if (num < 0)
 	{
-		buffer[buffer_len++] = '0';
+		buffer[buffer_len++] = '-';
+		num = -num;
 	}
 
-	else
-	{
-		/* Handle negative numbers */
-		if (num < 0)
-		{
-			buffer[buffer_len++] = '-';
-			num = -num;
-		}
+	num_str = malloc(BUFFER * sizeof(char));
+	if (num_str == NULL)
+		return (-1);
 
-		/* Convert the integer to a string in reverse order */
-		while (num > 0)
-		{
-			buffer[buffer_len++] = '0' + (num % 10);
-			num /= 10;
-		}
+	do {
+		num_str[num_str_len++] = '0' + (num % 10);
+		num /= 10;
+	} while (num > 0);
 
-		/* Reverse the string to get the correct order */
-		for (int i = 0; i < buffer_len / 2; i++)
-		{
-			char temp = buffer[i];
+	for (i = num_str_len - 1; i >= 0; i--)
+		buffer[buffer_len++] = num_str[i];
 
-			buffer[i] = buffer[buffer_len - i - 1];
-			buffer[buffer_len - i - 1] = temp;
-		}
-	}
-	/* Write the buffer to stdout */
-	int chars_written = write(1, buffer, buffer_len);
-	/* Return the number of characters written or -1 in case of an error */
-	return ((chars_written == buffer_len) ? chars_written : -1);
+	free(num_str);
+	return (write(1, buffer, buffer_len));
 }
-
-
 
 
 /**
