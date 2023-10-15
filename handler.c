@@ -51,7 +51,7 @@ int handle_int(va_list args)
 {
 	int num = va_arg(args, int), i;
 	char buffer[BUFFER];
-	int buffer_len = 0;
+	int buffer_len = 0, is_negative = 0;
 
 	if (num == 0)
 	{
@@ -59,28 +59,35 @@ int handle_int(va_list args)
 	}
 	else
 	{
-		int num_str_len = 0;
-		char num_str[BUFFER];
 
 		if (num < 0)
 		{
-			buffer[buffer_len++] = '-';
+			is_negative = 1;
 			num = -num;
 		}
 
-		do {
-			num_str[num_str_len++] = '0' + (num % 10);
-			num /= 10;
-		} while (num > 0);
-
-		for (i = num_str_len - 1; i >= 0; i--)
+		while (num > 0)
 		{
-			buffer[buffer_len++] = num_str[i];
+			buffer[buffer_len++] = '0' + (num % 10);
+			num /= 10;
+		}
+
+		if (is_negative)
+		{
+			buffer[buffer_len++] = '-';
+		}
+
+
+		for (i = 0; i < buffer_len / 2; i++)
+		{
+			char temp = buffer[i];
+
+			buffer[i] = buffer[buffer_len - i - 1];
+			buffer[buffer_len - i - 1] = temp;
 		}
 	}
 
 	buffer[buffer_len] = '\0';
-
 	return (write(1, buffer, buffer_len));
 }
 
