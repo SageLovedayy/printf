@@ -34,7 +34,9 @@ int handle_binary(va_list args);
 int handle_octal(va_list args);
 int handle_hex_lower(va_list args);
 int handle_hex_upper(va_list args);
+int handle_custom_string(va_list args);
 
 int _strlen(char *s);
+void _itoa(int value, char *output);
 
 #endif /*_MAIN_H_*/

@@ -21,6 +21,7 @@ int printhand(const char *format, va_list iter)
 		{'o', handle_octal},
 		{'x', handle_hex_lower},
 		{'X', handle_hex_upper},
+		{'S', handle_custom_string},
 		{'\0', NULL},
 		/* add more specifiers */
 	};

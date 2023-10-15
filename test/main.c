@@ -11,6 +11,7 @@ int main() {
 
 
 
+
     num = _printf("Let's try to printf a simple sentence.\n");
     num1 = printf("Let's try to printf a simple sentence.\n");
     printf("return value _printf: %d\n return value printf: %d\n\n", num, num1);
@@ -38,6 +39,7 @@ int main() {
     printf("Unsigned octal:[%o]\n", ui);
     _printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
     printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
+    _printf("%S\n", "Best\nSchool");
 
     _printf("%b\n", 98);
 
