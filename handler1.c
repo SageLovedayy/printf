@@ -103,28 +103,36 @@ int handle_hex_upper(va_list args)
 }
 
 
+/**
+* handle_custom_string - handles custom string containng unprintable
+* @args: va_list containing argument
+* Return: Number of characters printed
+*/
+int handle_custom_string(va_list args)
+{
+	char *input = va_arg(args, char *);
+	char buffer[BUFFER];
+	int i, buffer_len = 0;
 
-int handle_custom_string(va_list args) {
-    char *input = va_arg(args, char *);
-    char buffer[BUFFER];
-    int i, buffer_len = 0;
-
-    for (i = 0; input[i] != '\0'; ++i)
-    {
-        if (input[i] >= 32 && input[i] < 127)
+	for (i = 0; input[i] != '\0'; ++i)
 	{
-            /* Printable characters*/
-            buffer[buffer_len++] = input[i];
-        } else {
-            /* Non-printable characters*/
-            buffer[buffer_len++] = '\\';
-            buffer[buffer_len++] = 'x';
-            /* Print ASCII code value in hexadecimal (always 2 characters)*/
-            _itoa((int)input[i], buffer + buffer_len);
-            buffer_len += 2;
-        }
-    }
-    buffer[buffer_len] = '\0';
+		if (input[i] >= 32 && input[i] < 127)
+		{
+			/* Printable characters*/
+			buffer[buffer_len++] = input[i];
+		}
 
-    return write(1, buffer, buffer_len);
+		else
+		{
+			/* Non-printable characters*/
+			buffer[buffer_len++] = '\\';
+			buffer[buffer_len++] = 'x';
+			/* Print ASCII code value in hexadecimal (always 2 characters)*/
+			_itoa((int)input[i], buffer + buffer_len);
+			buffer_len += 2;
+		}
+	}
+	buffer[buffer_len] = '\0';
+
+	return (write(1, buffer, buffer_len));
 }

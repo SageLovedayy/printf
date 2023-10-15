@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <stdint.h>
 
 #define BUFFER 1024
 
@@ -35,6 +36,7 @@ int handle_octal(va_list args);
 int handle_hex_lower(va_list args);
 int handle_hex_upper(va_list args);
 int handle_custom_string(va_list args);
+int handle_pointer(va_list args);
 
 int _strlen(char *s);
 void _itoa(int value, char *output);
