@@ -30,6 +30,7 @@ int printhand(const char *format, va_list iter)
 		if (*format == specifiers[i].specifier)
 		{
 			counter += (specifiers[i].handler(iter));
+			break;
 		}
 	}
 
