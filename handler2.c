@@ -13,6 +13,11 @@ int handle_pointer(va_list args)
 	char buffer[BUFFER];
 	int buffer_len = 0, remainder, i;
 
+	if (ptr == NULL)
+	{
+		return (write(1, "(nil)", 5));
+	}
+
 	num = (uintptr_t)ptr;
 
 
