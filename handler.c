@@ -49,7 +49,7 @@ int handle_percent(va_list args)
 */
 int handle_int(va_list args)
 {
-	int num = va_arg(args, int);
+	int num = va_arg(args, int), i;
 	char buffer[BUFFER];
 	int buffer_len = 0;
 
@@ -73,7 +73,7 @@ int handle_int(va_list args)
 			num /= 10;
 		} while (num > 0);
 
-		for (int i = num_str_len - 1; i >= 0; i--)
+		for (i = num_str_len - 1; i >= 0; i--)
 		{
 			buffer[buffer_len++] = num_str[i];
 		}
