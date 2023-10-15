@@ -49,28 +49,38 @@ int handle_percent(va_list args)
 */
 int handle_int(va_list args)
 {
-	int i, num = va_arg(args, int), buffer_len = 0, num_str_len = 0;
-	char buffer[BUFFER], *num_str;
+	int num = va_arg(args, int);
+	char buffer[BUFFER];
+	int buffer_len = 0;
 
-	if (num < 0)
+	if (num == 0)
 	{
-		buffer[buffer_len++] = '-';
-		num = -num;
+		buffer[buffer_len++] = '0';
+	}
+	else
+	{
+		int num_str_len = 0;
+		char num_str[BUFFER];
+
+		if (num < 0)
+		{
+			buffer[buffer_len++] = '-';
+			num = -num;
+		}
+
+		do {
+			num_str[num_str_len++] = '0' + (num % 10);
+			num /= 10;
+		} while (num > 0);
+
+		for (int i = num_str_len - 1; i >= 0; i--)
+		{
+			buffer[buffer_len++] = num_str[i];
+		}
 	}
 
-	num_str = malloc(BUFFER * sizeof(char));
-	if (num_str == NULL)
-		return (-1);
+	buffer[buffer_len] = '\0';
 
-	do {
-		num_str[num_str_len++] = '0' + (num % 10);
-		num /= 10;
-	} while (num > 0);
-
-	for (i = num_str_len - 1; i >= 0; i--)
-		buffer[buffer_len++] = num_str[i];
-
-	free(num_str);
 	return (write(1, buffer, buffer_len));
 }
 
