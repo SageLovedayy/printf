@@ -55,7 +55,7 @@ int handle_string(va_list args, struct FormatSettings *formatSettings)
 	{
 		write(1, str, str_len);
 		while (formatSettings->width > str_len)
-	{
+		{
 			write(1, " ", 1);
 			formatSettings->width--;
 		}
@@ -63,7 +63,7 @@ int handle_string(va_list args, struct FormatSettings *formatSettings)
 	else if (formatSettings->flags & 4) /* Zero padding flag '0' */
 	{
 		while (formatSettings->width > str_len)
-	{
+		{
 			write(1, "0", 1);
 			formatSettings->width--;
 		}
@@ -72,7 +72,7 @@ int handle_string(va_list args, struct FormatSettings *formatSettings)
 	else
 	{
 		while (formatSettings->width > str_len)
-	{
+		{
 			write(1, " ", 1);
 			formatSettings->width--;
 		}
