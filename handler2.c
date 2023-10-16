@@ -3,6 +3,7 @@
 /**
 * handle_pointer - handles the address of a pointer
 * @args: va_list containing argument
+* @formatSettings: descri
 * Return: Number of characters printed
 */
 
@@ -13,7 +14,7 @@ int handle_pointer(va_list args, struct FormatSettings *formatSettings)
 	char buffer[BUFFER];
 	int buffer_len = 0, remainder, i;
 
-	UNUSED( formatSettings);
+	UNUSED(formatSettings);
 
 	if (ptr == NULL)
 	{

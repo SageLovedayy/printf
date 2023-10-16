@@ -10,7 +10,7 @@ int handle_char(va_list args, struct FormatSettings *formatSettings)
 {
 	char c = va_arg(args, int);
 
-	UNUSED( formatSettings);
+	UNUSED(formatSettings);
 
 	return (write(1, &c, 1));
 }
@@ -66,6 +66,7 @@ int handle_string(va_list args, struct FormatSettings *formatSettings)
 /**
 * handle_percent - handles percent specifier for printf
 * @args: va_list containing the character argument
+* @formatSettings: descri
 * Return: Number of characters printed (Always 1)
 */
 int handle_percent(va_list args, struct FormatSettings *formatSettings)
@@ -73,7 +74,7 @@ int handle_percent(va_list args, struct FormatSettings *formatSettings)
 	char percent = '%';
 	(void)args;
 
-	UNUSED( formatSettings);
+	UNUSED(formatSettings);
 
 	return (write(1, &percent, 1));
 }
@@ -81,6 +82,7 @@ int handle_percent(va_list args, struct FormatSettings *formatSettings)
 /**
 * handle_int - handles integer specifier for printf
 * @args: va_list containing the integer argument
+* @formatSettings: descri
 * Return: Number of characters printed (including -)
 */
 int handle_int(va_list args, struct FormatSettings *formatSettings)
@@ -89,15 +91,13 @@ int handle_int(va_list args, struct FormatSettings *formatSettings)
 	char buffer[BUFFER];
 	int buffer_len = 0, is_negative = 0;
 
-	UNUSED( formatSettings);
-
+	UNUSED(formatSettings);
 	if (num == 0)
 	{
 		buffer[buffer_len++] = '0';
 	}
 	else
 	{
-
 		if (num < 0)
 		{
 			is_negative = 1;
@@ -135,6 +135,7 @@ int handle_int(va_list args, struct FormatSettings *formatSettings)
 /**
 * handle_unsigned - handles unsigned integer specifier for printf
 * @args: va_list containing the unsigned int argument
+* @formatSettings: descri
 * Return: Number of characters printed (excluding -)
 */
 int handle_unsigned(va_list args, struct FormatSettings *formatSettings)
@@ -143,7 +144,7 @@ int handle_unsigned(va_list args, struct FormatSettings *formatSettings)
 	char buffer[BUFFER], reversed_buffer[BUFFER];
 	int i, buffer_len = 0, reversed_len = 0;
 
-	UNUSED( formatSettings);
+	UNUSED(formatSettings);
 
 	do {
 		buffer[buffer_len++] = '0' + (num % 10);

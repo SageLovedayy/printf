@@ -49,10 +49,15 @@ int _atoi(char *s)
 	return (n);
 }
 
-
+/**
+* _itoa - add descr
+* @value: add descr
+* @output: descri
+*/
 void _itoa(int value, char *output)
 {
 	const char *hex_chars = "0123456789ABCDEF";
+
 	output[0] = hex_chars[(value >> 4) & 0xF];
 	output[1] = hex_chars[value & 0xF];
 	output[2] = '\0';
