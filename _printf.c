@@ -9,29 +9,16 @@
 int printhand(const char *format, va_list iter)
 {
 	int i = 0, counter = 0;
+	int unknown_len = 0;
 	struct FormatSettings formatSettings;
 
 	format_specifier specifiers[] = {
-		{'c', handle_char},
-		{'s', handle_string},
-		{'%', handle_percent},
-		{'d', handle_int},
-		{'i', handle_int},
-		{'u', handle_unsigned},
-		{'b', handle_binary},
-		{'o', handle_octal},
-		{'x', handle_hex_lower},
-		{'X', handle_hex_upper},
-		{'S', handle_custom_string},
-		{'p', handle_pointer},
-		{'\0', NULL},
-		/* add more specifiers */
+		{'c', handle_char}, {'s', handle_string}, {'%', handle_percent},
+		{'d', handle_int}, {'i', handle_int}, {'u', handle_unsigned},
+		{'b', handle_binary}, {'o', handle_octal}, {'x', handle_hex_lower},
+		{'X', handle_hex_upper}, {'S', handle_custom_string}, {'p', handle_pointer},
+		{'\0', NULL} /* add more specifiers */
 	};
-
-	formatSettings.flags = parse_format_flags(format, &i);
-	formatSettings.width = parse_format_width(format, &i, iter);
-	formatSettings.precision = parse_format_precision(format, &i, iter);
-
 	for (i = 0; specifiers[i].specifier != '\0'; i++)
 	{
 		if (*format == specifiers[i].specifier)
@@ -42,8 +29,24 @@ int printhand(const char *format, va_list iter)
 	}
 
 	if (specifiers[i].specifier == '\0')
-		return (-1);
-
+	{
+		if (format[i] == '\0') /* Handle unknown format specifier */
+			return (-1);
+		unknown_len += write(1, "%%", 1);
+		if (format[i - 1] == ' ')
+			unknown_len += write(1, " ", 1);
+		else if (formatSettings.width)
+		{
+			--i;
+			while (format[i] != ' ' && format[i] != '%')
+				--i;
+			if (format[i] == ' ')
+				--i;
+			return (1);
+		}
+		unknown_len += write(1, &format[i], 1);
+		return (unknown_len);
+	}
 	return (counter);
 }
 

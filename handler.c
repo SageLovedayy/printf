@@ -119,7 +119,7 @@ int handle_percent(va_list args, struct FormatSettings *formatSettings)
 			write(1, " ", 1);
 			formatSettings->width--;
 		}
-		write(1, "%", 1);
+		write(1, &percent, 1);
 	}
 
 	return (1);
