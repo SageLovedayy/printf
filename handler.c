@@ -133,7 +133,7 @@ int handle_percent(va_list args, struct FormatSettings *formatSettings)
 */
 int handle_int(va_list args, struct FormatSettings *formatSettings)
 {
-	int num = va_arg(args, int), i;
+	int num = va_arg(args, int), i, bytes_written;
 	char buffer[BUFFER];
 	int buffer_len = 0, is_negative = 0;
 
@@ -149,7 +149,6 @@ int handle_int(va_list args, struct FormatSettings *formatSettings)
 			is_negative = 1;
 			num = -num;
 		}
-
 		while (num > 0)
 		{
 			buffer[buffer_len++] = '0' + (num % 10);
@@ -157,11 +156,7 @@ int handle_int(va_list args, struct FormatSettings *formatSettings)
 		}
 
 		if (is_negative)
-		{
 			buffer[buffer_len++] = '-';
-		}
-
-
 		for (i = 0; i < buffer_len / 2; i++)
 		{
 			char temp = buffer[i];
@@ -170,13 +165,15 @@ int handle_int(va_list args, struct FormatSettings *formatSettings)
 			buffer[buffer_len - i - 1] = temp;
 		}
 	}
-
 	buffer[buffer_len] = '\0';
-	return (write(1, buffer, buffer_len));
+	/*16/10/23*/
+	bytes_written = (write(1, buffer, buffer_len));
+
+	if (bytes_written < 0)
+		return (-1);
+
+	return (bytes_written);
 }
-
-
-
 
 /**
 * handle_unsigned - handles unsigned integer specifier for printf
