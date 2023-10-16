@@ -6,7 +6,7 @@
 * @index: add descr
 * Return: flags
 */
-int parse_format_flags(const char *format, unsigned int *index)
+int parse_format_flags(const char *format, int *index)
 {
 	int current_index = *index + 1;
 	int flags = 0;

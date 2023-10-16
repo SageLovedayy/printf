@@ -53,9 +53,9 @@ int handle_hex_upper(va_list args, struct FormatSettings *formatSettings);
 int handle_custom_string(va_list args, struct FormatSettings *formatSettings);
 int handle_pointer(va_list args, struct FormatSettings *formatSettings);
 
-int parse_format_flags(const char *format, unsigned int *index);
-int parse_format_width(const char *format, unsigned int *index, va_list list);
-int parse_format_precision(const char *format, unsigned int *index, va_list list);
+int parse_format_flags(const char *format, int *index);
+int parse_format_width(const char *format, int *index, va_list list);
+int parse_format_precision(const char *format, int *index, va_list list);
 
 
 int _strlen(char *s);

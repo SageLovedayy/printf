@@ -8,7 +8,7 @@
 * @args: add descr
 * Return: precision
 */
-int parse_format_precision(const char *format, unsigned int *index, va_list args)
+int parse_format_precision(const char *format, int *index, va_list args)
 {
 	int current_index = *index + 1;
 	int precision = -1;

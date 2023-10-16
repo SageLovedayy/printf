@@ -8,7 +8,7 @@
 */
 int printhand(const char *format, va_list iter)
 {
-	unsigned int i, counter = 0;
+	int i = 0, counter = 0;
 	struct FormatSettings formatSettings;
 
 	format_specifier specifiers[] = {
@@ -40,6 +40,9 @@ int printhand(const char *format, va_list iter)
 			break;
 		}
 	}
+
+	if (specifiers[i].specifier == '\0')
+		return (-1);
 
 	return (counter);
 }

@@ -17,7 +17,7 @@ int is_digit(char c)
 * @args: add descr
 * Return: width
 */
-int parse_format_width(const char *format, unsigned int *index, va_list args)
+int parse_format_width(const char *format, int *index, va_list args)
 {
 	int current_index = *index + 1;
 	int width = 0;

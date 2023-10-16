@@ -9,6 +9,9 @@ int main() {
     _printf("%s\n", NULL);
     _printf("Character: %c, String: %s, Integer: %d\n", 'X', "Testing", 123);
 
+    printf("Left-aligned: |%-20s|\n", "Left Aligned Text");
+    _printf("Left-aligned: |%-20s|\n", "Left Aligned Text");
+
     i = 2;
     ptr = &i;
     num = printf("The address is: %p, the value is %d\n", (void *)ptr, *ptr);
