@@ -92,9 +92,37 @@ int handle_percent(va_list args, struct FormatSettings *formatSettings)
 	char percent = '%';
 	(void)args;
 
-	UNUSED(formatSettings);
+	/* Apply width and flags */
+	if (formatSettings->flags & 1)
+	{  /* Left-justify flag '-' */
+		write(1, &percent, 1);
+		while (formatSettings->width > 1)
+		{
+			write(1, " ", 1);
+			formatSettings->width--;
+		}
+	}
 
-	return (write(1, &percent, 1));
+	else if (formatSettings->flags & 4)
+	{  /* Zero padding flag '0' */
+		while (formatSettings->width > 1)
+		{
+			write(1, "0", 1);
+			formatSettings->width--;
+		}
+		write(1, &percent, 1);
+	}
+	else
+	{
+		while (formatSettings->width > 1)
+		{
+			write(1, " ", 1);
+			formatSettings->width--;
+		}
+		write(1, "%", 1);
+	}
+
+	return (1);
 }
 
 /**
