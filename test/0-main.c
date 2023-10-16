@@ -8,7 +8,8 @@ int main() {
     unsigned int ui = (unsigned int)INT_MAX + 1024;
 
     /*printf("%\n");*/
-    _printf("%\n");
+    printf("%+d", 42);
+    _printf("%+d", 42);
 
     _printf("%s\n", NULL);
     _printf("Character: %c, String: %s, Integer: %d\n", 'X', "Testing", 123);
