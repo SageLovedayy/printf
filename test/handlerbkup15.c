@@ -3,14 +3,11 @@
 /**
 * handle_char - handles character specifier for printf
 * @args: va_list containing the character argument
-* @formatSettings: descri
 * Return: Number of characters printed
 */
 int handle_char(va_list args, struct FormatSettings *formatSettings)
 {
 	char c = va_arg(args, int);
-
-	UNUSED( formatSettings);
 
 	return (write(1, &c, 1));
 }
@@ -18,49 +15,18 @@ int handle_char(va_list args, struct FormatSettings *formatSettings)
 /**
 * handle_string - handles string specifier for printf
 * @args: va_list containing the character argument
-* @formatSettings: descri
 * Return: Number of characters printed (length of string)
 */
 int handle_string(va_list args, struct FormatSettings *formatSettings)
 {
 	char *str = va_arg(args, char *);
-	int str_len = 0;
 
 	if (str == NULL)
+	{
 		str = "(null)";
-	str_len = _strlen(str); /* Calculate string length */
-	/* Apply precision */
-	if (formatSettings->precision >= 0 && formatSettings->precision < str_len)
-		str_len = formatSettings->precision;
-	/*Apply width and flags*/
-	if (formatSettings->flags & 1)  /* Left-justify flag '-' */
-	{
-		write(1, str, str_len);
-		while (formatSettings->width > str_len)
-	{
-			write(1, " ", 1);
-			formatSettings->width--;
-		}
 	}
-	else if (formatSettings->flags & 4) /* Zero padding flag '0' */
-	{
-		while (formatSettings->width > str_len)
-	{
-			write(1, "0", 1);
-			formatSettings->width--;
-		}
-		write(1, str, str_len);
-	}
-	else
-	{
-		while (formatSettings->width > str_len)
-	{
-			write(1, " ", 1);
-			formatSettings->width--;
-		}
-		write(1, str, str_len);
-	}
-	return (str_len);
+
+	return (write(1, str, _strlen(str)));
 }
 
 /**
@@ -68,12 +34,10 @@ int handle_string(va_list args, struct FormatSettings *formatSettings)
 * @args: va_list containing the character argument
 * Return: Number of characters printed (Always 1)
 */
-int handle_percent(va_list args, struct FormatSettings *formatSettings)
+int handle_percent(va_list args)
 {
 	char percent = '%';
 	(void)args;
-
-	UNUSED( formatSettings);
 
 	return (write(1, &percent, 1));
 }
@@ -83,13 +47,11 @@ int handle_percent(va_list args, struct FormatSettings *formatSettings)
 * @args: va_list containing the integer argument
 * Return: Number of characters printed (including -)
 */
-int handle_int(va_list args, struct FormatSettings *formatSettings)
+int handle_int(va_list args)
 {
 	int num = va_arg(args, int), i;
 	char buffer[BUFFER];
 	int buffer_len = 0, is_negative = 0;
-
-	UNUSED( formatSettings);
 
 	if (num == 0)
 	{
@@ -137,13 +99,11 @@ int handle_int(va_list args, struct FormatSettings *formatSettings)
 * @args: va_list containing the unsigned int argument
 * Return: Number of characters printed (excluding -)
 */
-int handle_unsigned(va_list args, struct FormatSettings *formatSettings)
+int handle_unsigned(va_list args)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], reversed_buffer[BUFFER];
 	int i, buffer_len = 0, reversed_len = 0;
-
-	UNUSED( formatSettings);
 
 	do {
 		buffer[buffer_len++] = '0' + (num % 10);

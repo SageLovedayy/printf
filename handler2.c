@@ -6,12 +6,14 @@
 * Return: Number of characters printed
 */
 
-int handle_pointer(va_list args)
+int handle_pointer(va_list args, struct FormatSettings *formatSettings)
 {
 	void *ptr = va_arg(args, void *);
 	uintptr_t num;
 	char buffer[BUFFER];
 	int buffer_len = 0, remainder, i;
+
+	UNUSED( formatSettings);
 
 	if (ptr == NULL)
 	{

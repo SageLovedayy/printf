@@ -8,7 +8,8 @@
 */
 int printhand(const char *format, va_list iter)
 {
-	unsigned int i, counter = 0;
+	int i, counter = 0;
+	struct FormatSettings formatSettings;
 
 	format_specifier specifiers[] = {
 		{'c', handle_char},
@@ -27,11 +28,15 @@ int printhand(const char *format, va_list iter)
 		/* add more specifiers */
 	};
 
+	formatSettings.flags = parse_format_flags(format, &i);
+	formatSettings.width = parse_format_width(format, &i, iter);
+	formatSettings.precision = parse_format_precision(format, &i, iter);
+
 	for (i = 0; specifiers[i].specifier != '\0'; i++)
 	{
 		if (*format == specifiers[i].specifier)
 		{
-			counter += (specifiers[i].handler(iter));
+			counter += (specifiers[i].handler(iter, &formatSettings));
 			break;
 		}
 	}

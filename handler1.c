@@ -5,11 +5,13 @@
 * @args: va_list containing the unsigned integer argument
 * Return: Number of characters printed
 */
-int handle_binary(va_list args)
+int handle_binary(va_list args, struct FormatSettings *formatSettings)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], *binary_str;
 	int i, buffer_len = 0, binary_str_len = 0;
+
+	UNUSED( formatSettings);
 
 	binary_str = malloc(BUFFER * sizeof(char));
 	if (binary_str == NULL)
@@ -32,11 +34,13 @@ int handle_binary(va_list args)
 * @args: va_list containing the unsigned integer argument
 * Return: Number of characters printed
 */
-int handle_octal(va_list args)
+int handle_octal(va_list args, struct FormatSettings *formatSettings)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], reversed_buffer[BUFFER];
 	int i, buffer_len = 0, reversed_len = 0;
+
+	UNUSED( formatSettings);
 
 	do {
 		buffer[buffer_len++] = '0' + (num % 8);
@@ -55,11 +59,13 @@ int handle_octal(va_list args)
 * @args: va_list containing the unsigned integer argument
 * Return: Number of characters printed
 */
-int handle_hex_lower(va_list args)
+int handle_hex_lower(va_list args, struct FormatSettings *formatSettings)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER];
 	int i, buffer_len = 0, remainder;
+
+	UNUSED( formatSettings);
 
 	do {
 		remainder = num % 16;
@@ -81,11 +87,13 @@ int handle_hex_lower(va_list args)
 * @args: va_list containing the unsigned integer argument
 * Return: Number of characters printed
 */
-int handle_hex_upper(va_list args)
+int handle_hex_upper(va_list args, struct FormatSettings *formatSettings)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], reversed_buffer[BUFFER];
 	int i, buffer_len = 0, remainder, reversed_len = 0;
+
+	UNUSED( formatSettings);
 
 	do {
 		remainder = num % 16;
@@ -108,11 +116,13 @@ int handle_hex_upper(va_list args)
 * @args: va_list containing argument
 * Return: Number of characters printed
 */
-int handle_custom_string(va_list args)
+int handle_custom_string(va_list args, struct FormatSettings *formatSettings)
 {
 	char *input = va_arg(args, char *);
 	char buffer[BUFFER];
 	int i, buffer_len = 0;
+
+	UNUSED( formatSettings);
 
 	for (i = 0; input[i] != '\0'; ++i)
 	{
