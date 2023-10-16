@@ -6,6 +6,10 @@ int main() {
 
     int num, num1, len, len2, *ptr, i;
     unsigned int ui = (unsigned int)INT_MAX + 1024;
+
+    /*printf("%\n");*/
+    _printf("%\n");
+
     _printf("%s\n", NULL);
     _printf("Character: %c, String: %s, Integer: %d\n", 'X', "Testing", 123);
 

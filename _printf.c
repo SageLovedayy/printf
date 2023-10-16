@@ -70,7 +70,13 @@ int _printf(const char *format, ...)
 			format++;
 			prem_count = printhand(format, args);
 
+			if (prem_count < 0)    /*new test for hanging %*/
+				va_end(args);
+				return (-1);
+
 			count += prem_count;
+
+
 		}
 		else
 			count += write(1, format, 1);
