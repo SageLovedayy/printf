@@ -10,9 +10,27 @@ int handle_char(va_list args, struct FormatSettings *formatSettings)
 {
 	char c = va_arg(args, int);
 
-	UNUSED(formatSettings);
+	/* Apply width and flags */
+	if (formatSettings->flags & 1)
+	{  /* Left-justify flag '-' */
+		write(1, &c, 1);
+		while (formatSettings->width > 1)
+		{
+			write(1, " ", 1);
+			formatSettings->width--;
+		}
+	}
+	else
+	{
+		while (formatSettings->width > 1)
+		{
+			write(1, " ", 1);
+			formatSettings->width--;
+		}
+		write(1, &c, 1);
+	}
 
-	return (write(1, &c, 1));
+	return (1);
 }
 
 /**
