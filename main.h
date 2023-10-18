@@ -61,6 +61,7 @@ int parse_format_flags(const char *format, int *index);
 int parse_format_width(const char *format, int *index, va_list list);
 int parse_format_precision(const char *format, int *index, va_list list);
 
+int apform(char *buffer, int buffer_len, struct FormatSettings *formatSettings);
 
 int _strlen(char *s);
 void _itoa(int value, char *output);

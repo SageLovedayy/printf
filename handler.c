@@ -39,47 +39,21 @@ int handle_char(va_list args, struct FormatSettings *formatSettings)
 * @formatSettings: descri
 * Return: Number of characters printed (length of string)
 */
-int handle_string(va_list args, struct FormatSettings *formatSettings)
-{
+int handle_string(va_list args, struct FormatSettings *formatSettings) {
 	char *str = va_arg(args, char *);
-	int str_len = 0;
+	int str_len = (str != NULL) ? _strlen(str) : 6; /* Default length for "(null)" */
 
-	if (str == NULL)
-		str = "(null)";
-	str_len = _strlen(str); /* Calculate string length */
 	/* Apply precision */
-	if (formatSettings->precision >= 0 && formatSettings->precision < str_len)
+	if (formatSettings->precision >= 0 && formatSettings->precision < str_len) {
 		str_len = formatSettings->precision;
-	/*Apply width and flags*/
-	if (formatSettings->flags & 1)  /* Left-justify flag '-' */
-	{
-		write(1, str, str_len);
-		while (formatSettings->width > str_len)
-		{
-			write(1, " ", 1);
-			formatSettings->width--;
-		}
 	}
-	else if (formatSettings->flags & 4) /* Zero padding flag '0' */
-	{
-		while (formatSettings->width > str_len)
-		{
-			write(1, "0", 1);
-			formatSettings->width--;
-		}
-		write(1, str, str_len);
-	}
-	else
-	{
-		while (formatSettings->width > str_len)
-		{
-			write(1, " ", 1);
-			formatSettings->width--;
-		}
-		write(1, str, str_len);
-	}
-	return (str_len);
+
+	/* Call apply_format to handle width, precision, and padding */
+	return apform(str, str_len, formatSettings);
 }
+
+
+
 
 /**
 * handle_percent - handles percent specifier for printf

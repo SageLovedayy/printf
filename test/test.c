@@ -2,14 +2,22 @@
 #include <limits.h>
 #include <stdio.h>
 
+void run_printf_tests() {
+    int integerVal = 42;
+    float floatVal = 3.14159;
+
+    int hexVal = 255;
+    char charVal = 'A';
+
+    _printf("Integer: %+d\n", integerVal);
+    _printf("Float: %.2f\n", floatVal);
+    _printf("String: %s\n", "stringVal");
+    _printf("Hex: %#x\n", hexVal);
+    _printf("Character: %c\n", charVal);
+    _printf("Invalid Format: %z\n", 123);
+}
+
 int main() {
-
-	char input[] = "Hello, World!";
-
-	printf("Original String: %s\n", input);
-	printf("Reversed String: ");
-	_printf("%r", input);
-	printf("\n");
-
-	return (0);
+    run_printf_tests();
+    return 0;
 }
