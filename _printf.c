@@ -73,8 +73,6 @@ int _printf(const char *format, ...)
 			prem_count = printhand(format, args);
 
 			count += prem_count;
-
-
 		}
 		else
 			count += write(1, format, 1);

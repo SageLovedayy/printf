@@ -39,17 +39,17 @@ int handle_char(va_list args, struct FormatSettings *formatSettings)
 * @formatSettings: descri
 * Return: Number of characters printed (length of string)
 */
-int handle_string(va_list args, struct FormatSettings *formatSettings) {
+int handle_string(va_list args, struct FormatSettings *formatSettings)
+{
 	char *str = va_arg(args, char *);
-	int str_len = (str != NULL) ? _strlen(str) : 6; /* Default length for "(null)" */
+	int str_len = (str != NULL) ? _strlen(str) : 6; /*Default length for"(null)"*/
 
 	/* Apply precision */
-	if (formatSettings->precision >= 0 && formatSettings->precision < str_len) {
+	if (formatSettings->precision >= 0 && formatSettings->precision < str_len)
 		str_len = formatSettings->precision;
-	}
 
 	/* Call apply_format to handle width, precision, and padding */
-	return apform(str, str_len, formatSettings);
+	return (apform(str, str_len, formatSettings)); /*suspect*/
 }
 
 
