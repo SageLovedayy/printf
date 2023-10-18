@@ -25,6 +25,7 @@ int printhand(const char *format, va_list iter)
 		{'S', handle_custom_string},
 		{'p', handle_pointer},
 		{'R', handle_rot13},
+		{'r', handle_reverse},
 		{'\0', NULL},
 		/* add more specifiers */
 	};

@@ -55,6 +55,7 @@ int handle_hex_upper(va_list args, struct FormatSettings *formatSettings);
 int handle_custom_string(va_list args, struct FormatSettings *formatSettings);
 int handle_pointer(va_list args, struct FormatSettings *formatSettings);
 int handle_rot13(va_list args, struct FormatSettings *formatSettings);
+int handle_reverse(va_list args, struct FormatSettings *formatSettings);
 
 int parse_format_flags(const char *format, int *index);
 int parse_format_width(const char *format, int *index, va_list list);

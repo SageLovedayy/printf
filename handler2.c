@@ -92,3 +92,50 @@ int handle_rot13(va_list args, struct FormatSettings *formatSettings)
 }
 
 
+
+
+/**
+* handle_reverse - handles reversal of strings
+* @args: va_list containing argument
+* @formatSettings: descri
+* Return: Number of bytes written
+*/
+int handle_reverse(va_list args, struct FormatSettings *formatSettings)
+{
+	char *input = va_arg(args, char *);
+	char *reversed;
+	int buffer_len = 0;
+	int i, bytes_written;
+
+	UNUSED(formatSettings);
+
+	if (input == NULL)
+	{
+		return (-1);
+	}
+
+	buffer_len = _strlen(input);
+	reversed = malloc(buffer_len + 1);
+
+	if (reversed == NULL)
+	{
+		return (-1);
+	}
+
+	for (i = 0; i < buffer_len; i++)
+	{
+		reversed[i] = input[buffer_len - i - 1];
+	}
+
+	reversed[buffer_len] = '\0';
+
+	bytes_written = write(1, reversed, buffer_len);
+	free(reversed);
+
+	if (bytes_written < 0)
+	{
+		return (-1);
+	}
+
+	return (bytes_written);
+}
