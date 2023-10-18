@@ -43,3 +43,52 @@ int handle_pointer(va_list args, struct FormatSettings *formatSettings)
 
 	return (buffer_len);
 }
+
+/**
+* handle_rot13 - handles rot13
+* @args: va_list containing argument
+* @formatSettings: descri
+* Return: Number of bytes written
+*/
+int handle_rot13(va_list args, struct FormatSettings *formatSettings)
+{
+	char *input = va_arg(args, char *);
+	char buffer[BUFFER];
+	int buffer_len = 0;
+	int i, bytes_written;
+
+	UNUSED(formatSettings);
+
+	if (input == NULL)
+	{
+		return (-1);
+	}
+
+	for (i = 0; input[i] != '\0'; ++i)
+	{
+		char c = input[i];
+
+		if (isalpha(c))
+		{
+			char base = isupper(c) ? 'A' : 'a';
+
+			buffer[buffer_len++] = (c - base + 13) % 26 + base;
+		}
+		else
+		{
+			buffer[buffer_len++] = c;
+		}
+	}
+
+	buffer[buffer_len] = '\0';
+
+	bytes_written = write(1, buffer, buffer_len);
+	if (bytes_written < 0)
+	{
+		return (-1);
+	}
+
+	return (bytes_written);
+}
+
+

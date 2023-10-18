@@ -4,8 +4,13 @@
 
 int main() {
 
-	printf("%+d\n", 42);
-	_printf("%+d\n", 42);
+	char input[] = "Hello, World!";
+
+	printf("Original String: %s\n", input);
+	printf("ROT13 Encoded String: ");
+
+	_printf("%R", input);
+	printf("\n");
 
 	return (0);
 

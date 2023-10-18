@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stdint.h>
+#include <ctype.h>
+#include <stdbool.h>
 
 #define UNUSED(x) (void)(x)
 #define BUFFER 1024
@@ -52,6 +54,7 @@ int handle_hex_lower(va_list args, struct FormatSettings *formatSettings);
 int handle_hex_upper(va_list args, struct FormatSettings *formatSettings);
 int handle_custom_string(va_list args, struct FormatSettings *formatSettings);
 int handle_pointer(va_list args, struct FormatSettings *formatSettings);
+int handle_rot13(va_list args, struct FormatSettings *formatSettings);
 
 int parse_format_flags(const char *format, int *index);
 int parse_format_width(const char *format, int *index, va_list list);
