@@ -49,7 +49,8 @@ int handle_string(va_list args, struct FormatSettings *formatSettings)
 		str_len = formatSettings->precision;
 
 	/* Call apply_format to handle width, precision, and padding */
-	return (apform(str, str_len, formatSettings)); /*suspect*/
+	return (apform(str, str_len, formatSettings));
+	/* Not guided by local buffer 1024 */
 }
 
 

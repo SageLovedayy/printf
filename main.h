@@ -62,10 +62,11 @@ int parse_format_width(const char *format, int *index, va_list list);
 int parse_format_precision(const char *format, int *index, va_list list);
 
 int apform(char *buffer, int buffer_len,
-	struct FormatSettings *formatSettings);
+	   struct FormatSettings *formatSettings);
 
 int _strlen(char *s);
 void _itoa(int value, char *output);
+int _putchar(char c);
 int is_digit(char c);
 
 #endif /*_MAIN_H_*/
