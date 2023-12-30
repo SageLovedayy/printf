@@ -69,10 +69,15 @@ int _printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			format++;
-			_count = printhand(format, args);
+			if (*(format + 1) == '\0')
+				return (0);
+			else
+			{
+				format++;
+				_count = printhand(format, args);
 
-			count += _count;
+				count += _count;
+			}
 		}
 		else
 		{
