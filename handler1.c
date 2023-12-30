@@ -3,16 +3,16 @@
 /**
 * handle_binary - handles the binary specifier
 * @args: va_list containing the unsigned integer argument
-* @formatSettings: descri
+* @format_setting: descri
 * Return: Number of characters printed
 */
-int handle_binary(va_list args, struct FormatSettings *formatSettings)
+int handle_binary(va_list args, format_setting_t *format_setting)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], *binary_str;
 	int i, buffer_len = 0, binary_str_len = 0;
 
-	UNUSED(formatSettings);
+	UNUSED(format_setting);
 
 	binary_str = malloc(BUFFER * sizeof(char));
 	if (binary_str == NULL)
@@ -33,16 +33,16 @@ int handle_binary(va_list args, struct FormatSettings *formatSettings)
 /**
 * handle_octal - handles the octal specifier
 * @args: va_list containing the unsigned integer argument
-* @formatSettings: descri
+* @format_setting: descri
 * Return: Number of characters printed
 */
-int handle_octal(va_list args, struct FormatSettings *formatSettings)
+int handle_octal(va_list args, format_setting_t *format_setting)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], reversed_buffer[BUFFER];
 	int i, buffer_len = 0, reversed_len = 0;
 
-	UNUSED(formatSettings);
+	UNUSED(format_setting);
 
 	do {
 		buffer[buffer_len++] = '0' + (num % 8);
@@ -59,16 +59,16 @@ int handle_octal(va_list args, struct FormatSettings *formatSettings)
 /**
 * handle_hex_lower - handles the lowercase hexadecimal specifier
 * @args: va_list containing the unsigned integer argument
-* @formatSettings: descri
+* @format_setting: descri
 * Return: Number of characters printed
 */
-int handle_hex_lower(va_list args, struct FormatSettings *formatSettings)
+int handle_hex_lower(va_list args, format_setting_t *format_setting)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER];
 	int i, buffer_len = 0, remainder;
 
-	UNUSED(formatSettings);
+	UNUSED(format_setting);
 
 	do {
 		remainder = num % 16;
@@ -88,16 +88,16 @@ int handle_hex_lower(va_list args, struct FormatSettings *formatSettings)
 /**
 * handle_hex_upper - handles the uppercase hexadecimal specifier
 * @args: va_list containing the unsigned integer argument
-* @formatSettings: descri
+* @format_setting: descri
 * Return: Number of characters printed
 */
-int handle_hex_upper(va_list args, struct FormatSettings *formatSettings)
+int handle_hex_upper(va_list args, format_setting_t *format_setting)
 {
 	unsigned int num = va_arg(args, unsigned int);
 	char buffer[BUFFER], reversed_buffer[BUFFER];
 	int i, buffer_len = 0, remainder, reversed_len = 0;
 
-	UNUSED(formatSettings);
+	UNUSED(format_setting);
 
 	do {
 		remainder = num % 16;
@@ -118,16 +118,16 @@ int handle_hex_upper(va_list args, struct FormatSettings *formatSettings)
 /**
 * handle_custom_string - handles custom string containng unprintable
 * @args: va_list containing argument
-* @formatSettings: descri
+* @format_setting: descri
 * Return: Number of characters printed
 */
-int handle_custom_string(va_list args, struct FormatSettings *formatSettings)
+int handle_custom_string(va_list args, format_setting_t *format_setting)
 {
 	char *input = va_arg(args, char *);
 	char buffer[BUFFER];
 	int i, buffer_len = 0;
 
-	UNUSED(formatSettings);
+	UNUSED(format_setting);
 
 	for (i = 0; input[i] != '\0'; ++i)
 	{

@@ -1,17 +1,17 @@
 #include "main.h"
 
 /**
-* printhand - handles format specifiers and prints formatted output
-* @format: formatted input string containing specifiers
-* @iter: list of specifier characters to iterate over (va_list)
+* printhand - handles format specifier and prints formatted output
+* @format: formatted input string containing specifier
+* @iter: list of spec characters to iterate over (va_list)
 * Return: number of characters printed successfully
 */
 int printhand(const char *format, va_list iter)
 {
-	int i = 0, counter = 0;
-	struct FormatSettings formatSettings;
+	int i = 0, count = 0;
+	format_setting_t format_setting;		/* idg */
 
-	format_specifier specifiers[] = {
+	format_specifier_t specifier[] = {
 		{'c', handle_char},
 		{'s', handle_string},
 		{'%', handle_percent},
@@ -25,39 +25,42 @@ int printhand(const char *format, va_list iter)
 		{'S', handle_custom_string},
 		{'p', handle_pointer},
 		{'R', handle_rot13},
-		{'r', handle_reverse},
 		{'\0', NULL},
-		/* add more specifiers */
+		/* add more specifier */
 	};
 
+	/* idg */
+	format_setting.flags = parse_format_flags(format, &i);
+	format_setting.width = parse_format_width(format, &i, iter);
+	format_setting.precision = parse_format_precision(format, &i, iter);
 
-	formatSettings.flags = parse_format_flags(format, &i);
-	formatSettings.width = parse_format_width(format, &i, iter);
-	formatSettings.precision = parse_format_precision(format, &i, iter);
-
-	for (i = 0; specifiers[i].specifier != '\0'; i++)
+	for (i = 0; specifier[i].spec != '\0'; i++)
 	{
-		if (*format == specifiers[i].specifier)
+		if (*format == specifier[i].spec)
 		{
-			counter += (specifiers[i].handler(iter, &formatSettings));
+			count += specifier[i].handler(iter, &format_setting);
 			break;
 		}
 	}
 
-	if (specifiers[i].specifier == '\0')
-		return (-1);
+	if (specifier[i].spec == '\0')
+	{
+		write(1, "%", 1);
+		write(1, format, 1);
+		count += 2;
+	}
 
-	return (counter);
+	return (count);
 }
 
 /**
 * _printf - custom printf implementation for formatted output
-* @format: formatted string containing specifiers
+* @format: formatted string containing specifier
 * Return: number of characters printed successfully. returns -1 on error
 */
 int _printf(const char *format, ...)
 {
-	unsigned int count = 0, prem_count;
+	unsigned int count = 0, _count;
 	va_list args;
 
 	va_start(args, format);
@@ -70,12 +73,17 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			prem_count = printhand(format, args);
+			_count = printhand(format, args);
 
-			count += prem_count;
+			count += _count;
 		}
 		else
-			count += write(1, format, 1);
+		{
+			if (write(1, format, 1) > 0)
+				count++;
+			else
+				return (-1);
+		}
 		format++;
 	}
 

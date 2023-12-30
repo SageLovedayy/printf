@@ -15,54 +15,52 @@ int _printf(const char *format, ...);
 
 
 /**
-* struct FormatSettings - handles Formatsettings
+* format_setting_t - handles format_setting
 * @flags: I will add description
 * @width: Remember to add description
 * @precision: remember to add desc
 */
-struct FormatSettings
+typedef struct FormatSetting_s
 {
 	int flags;
 	int width;
 	int precision;
-
-};
+} format_setting_t;
 
 /**
 * struct format_specifier_struct - associates format specifiers with handlers
 * @specifier: character representing specific format specifier
 * @handler: pointer to function that handles specified format
 */
-struct format_specifier_struct
+typedef struct format_specifier_s
 {
-	char specifier;  /* c, s, d, i... */
-	int (*handler)(va_list args, struct FormatSettings *formatsettings);
-};
+	char spec;  /* c, s, d, i... */
+	int (*handler)(va_list args, format_setting_t *format_setting);
+} format_specifier_t;
 
-extern struct FormatSettings formatSettings;
-typedef struct format_specifier_struct format_specifier;
+extern format_setting_t format_setting;
 
-int handle_char(va_list args, struct FormatSettings *formatSettings);
-int handle_string(va_list args, struct FormatSettings *formatSettings);
-int handle_percent(va_list args, struct FormatSettings *formatSettings);
-int handle_int(va_list args, struct FormatSettings *formatSettings);
-int handle_unsigned(va_list args, struct FormatSettings *formatSettings);
+int handle_char(va_list args, format_setting_t *format_setting);
+int handle_string(va_list args, format_setting_t *format_setting);
+int handle_percent(va_list args, format_setting_t *format_setting);
+int handle_int(va_list args, format_setting_t *format_setting);
+int handle_unsigned(va_list args, format_setting_t *format_setting);
 
-int handle_binary(va_list args, struct FormatSettings *formatSettings);
-int handle_octal(va_list args, struct FormatSettings *formatSettings);
-int handle_hex_lower(va_list args, struct FormatSettings *formatSettings);
-int handle_hex_upper(va_list args, struct FormatSettings *formatSettings);
-int handle_custom_string(va_list args, struct FormatSettings *formatSettings);
-int handle_pointer(va_list args, struct FormatSettings *formatSettings);
-int handle_rot13(va_list args, struct FormatSettings *formatSettings);
-int handle_reverse(va_list args, struct FormatSettings *formatSettings);
+int handle_binary(va_list args, format_setting_t *format_setting);
+int handle_octal(va_list args, format_setting_t *format_setting);
+int handle_hex_lower(va_list args, format_setting_t *format_setting);
+int handle_hex_upper(va_list args, format_setting_t *format_setting);
+int handle_custom_string(va_list args, format_setting_t *format_setting);
+int handle_pointer(va_list args, format_setting_t *format_setting);
+int handle_rot13(va_list args, format_setting_t *format_setting);
+int handle_reverse(va_list args, format_setting_t *format_setting);
 
 int parse_format_flags(const char *format, int *index);
 int parse_format_width(const char *format, int *index, va_list list);
 int parse_format_precision(const char *format, int *index, va_list list);
 
 int apform(char *buffer, int buffer_len,
-	   struct FormatSettings *formatSettings);
+	   format_setting_t *format_setting);
 
 int _strlen(char *s);
 void _itoa(int value, char *output);

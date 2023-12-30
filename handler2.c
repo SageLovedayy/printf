@@ -3,18 +3,18 @@
 /**
 * handle_pointer - handles the address of a pointer
 * @args: va_list containing argument
-* @formatSettings: descri
+* @format_setting: descri
 * Return: Number of characters printed
 */
 
-int handle_pointer(va_list args, struct FormatSettings *formatSettings)
+int handle_pointer(va_list args, format_setting_t *format_setting)
 {
 	void *ptr = va_arg(args, void *);
 	uintptr_t num;
 	char buffer[BUFFER];
 	int buffer_len = 0, remainder, i;
 
-	UNUSED(formatSettings);
+	UNUSED(format_setting);
 
 	if (ptr == NULL)
 	{
@@ -47,17 +47,17 @@ int handle_pointer(va_list args, struct FormatSettings *formatSettings)
 /**
 * handle_rot13 - handles rot13
 * @args: va_list containing argument
-* @formatSettings: descri
+* @format_setting: descri
 * Return: Number of bytes written
 */
-int handle_rot13(va_list args, struct FormatSettings *formatSettings)
+int handle_rot13(va_list args, format_setting_t *format_setting)
 {
 	char *input = va_arg(args, char *);
 	char buffer[BUFFER];
 	int buffer_len = 0;
 	int i, bytes_written;
 
-	UNUSED(formatSettings);
+	UNUSED(format_setting);
 
 	if (input == NULL)
 	{
@@ -97,17 +97,17 @@ int handle_rot13(va_list args, struct FormatSettings *formatSettings)
 /**
 * handle_reverse - handles reversal of strings
 * @args: va_list containing argument
-* @formatSettings: descri
+* @format_setting: descri
 * Return: Number of bytes written
 */
-int handle_reverse(va_list args, struct FormatSettings *formatSettings)
+int handle_reverse(va_list args, format_setting_t *format_setting)
 {
 	char *input = va_arg(args, char *);
 	char *reversed;
 	int buffer_len = 0;
 	int i, bytes_written;
 
-	UNUSED(formatSettings);
+	UNUSED(format_setting);
 
 	if (input == NULL)
 	{
