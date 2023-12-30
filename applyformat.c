@@ -26,9 +26,7 @@ int apform(char *buffer, int buffer_len, format_setting_t *format_setting)
 	if (!(format_setting->flags & 1) && !(format_setting->flags & 4))
 	{/* If not left-justify and not zero padding */
 		for (i = 0; i < format_setting->width - total_width; ++i)
-		{
 			write(1, " ", 1);
-		}
 	}
 	/* Write padding before the content (if zero padding) */
 	if ((format_setting->flags & 4) && !(format_setting->flags & 1))
@@ -37,17 +35,17 @@ int apform(char *buffer, int buffer_len, format_setting_t *format_setting)
 			write(1, "0", 1);
 	}
 	/* Write the content */
-	write(1, buffer, buffer_len);
+	if (buffer)
+		write(1, buffer, buffer_len);
+	else
+		write(1, "(null)", 6);
 
 	/* Write padding after the content (if any) */
 	if (format_setting->flags & 1)
 	{ /* If left-justify */
 		for (i = 0; i < format_setting->width - total_width; ++i)
-		{
 			write(1, " ", 1);
-		}
 	}
-
 	/* oringinaly returns total_width */
 	return (buffer_len);
 }

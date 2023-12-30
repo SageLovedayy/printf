@@ -15,7 +15,7 @@ int _printf(const char *format, ...);
 
 
 /**
-* format_setting_t - handles format_setting
+* struct FormatSetting_s - handles format_setting
 * @flags: I will add description
 * @width: Remember to add description
 * @precision: remember to add desc
@@ -28,8 +28,8 @@ typedef struct FormatSetting_s
 } format_setting_t;
 
 /**
-* struct format_specifier_struct - associates format specifiers with handlers
-* @specifier: character representing specific format specifier
+* struct format_specifier_s - associates format specifiers with handlers
+* @spec: character representing specific format specifier
 * @handler: pointer to function that handles specified format
 */
 typedef struct format_specifier_s

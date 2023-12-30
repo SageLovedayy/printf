@@ -9,8 +9,7 @@
 int printhand(const char *format, va_list iter)
 {
 	int i = 0, count = 0;
-	format_setting_t format_setting;		/* idg */
-
+	format_setting_t format_setting;
 	format_specifier_t specifier[] = {
 		{'c', handle_char},
 		{'s', handle_string},
@@ -29,7 +28,6 @@ int printhand(const char *format, va_list iter)
 		/* add more specifier */
 	};
 
-	/* idg */
 	format_setting.flags = parse_format_flags(format, &i);
 	format_setting.width = parse_format_width(format, &i, iter);
 	format_setting.precision = parse_format_precision(format, &i, iter);
@@ -49,7 +47,6 @@ int printhand(const char *format, va_list iter)
 		write(1, format, 1);
 		count += 2;
 	}
-
 	return (count);
 }
 
